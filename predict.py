@@ -1,7 +1,7 @@
 # pages/api/predict.py
 
 from flask import Flask, request,jsonify
-import os
+import os, io
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -62,11 +62,15 @@ def predictionX():
         # Get the image file from the request
         file = request.files['image']
         print(file.filename)
-        # Load and preprocess the image
-        path = "./image/"+file.filename
-        file.save(path)
-        print(file.filename)
-        img = load_img(path, target_size=(256, 256))
+        
+        # Read image data from the request
+        image_data = file.read()
+        image = Image.open(io.BytesIO(image_data))
+        
+        # Resize the image to the target size
+        img = image.resize((256, 256))
+
+        
         i = img_to_array(img)
         im = preprocess_input(i)
         img = np.expand_dims(im, axis=0)
