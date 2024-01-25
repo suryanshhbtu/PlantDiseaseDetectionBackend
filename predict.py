@@ -2,9 +2,12 @@
 
 from flask import Flask, request,jsonify
 import os, io
-from tensorflow.keras.models import load_model
-from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.models 
+import load_model
+from tensorflow.keras.applications.vgg16 
+import preprocess_input
+from tensorflow.keras.preprocessing.image 
+import load_img, img_to_array
 import numpy as np
 
 from PIL import Image
@@ -70,7 +73,7 @@ def predictionX():
         # Resize the image to the target size
         img = image.resize((256, 256))
 
-        
+
         i = img_to_array(img)
         im = preprocess_input(i)
         img = np.expand_dims(im, axis=0)
